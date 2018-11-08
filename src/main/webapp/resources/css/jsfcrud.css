@@ -22,3 +22,10 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+.ui-grid{
+    border: none !important;
+}
+
+.textRight(){
+    text-align: right !important;
+}

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/temp_app.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Selección de Servicio"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form>
+        <p:growl id="msgs" showDetail="true" />
+
+
+        <p:panelGrid columns="3" layout="grid"> 
+            <p:fieldset legend="Telefonía Móvil" style="margin-bottom:20px">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:graphicImage library="imagenes" name="movil.png" style="max-height: 150px;" />
+                    <h:link outcome="/s/movil/movil" value="Pagar Telefonía Móvil Tuenti/Movistar/Claro"/>
+                </h:panelGrid>
+            </p:fieldset>
+            <p:fieldset legend="Servicios Básicos" style="margin-bottom:20px">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:graphicImage library="imagenes" name="basicos.png" style="max-height: 150px;" />
+                    <h:link outcome="/s/basico/basicos" value="Pagar Servicios Básicos Agua/Luz"/>
+                </h:panelGrid>
+            </p:fieldset>
+            <p:fieldset legend="Telefonía Fija" style="margin-bottom:20px">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:graphicImage library="imagenes" name="phone.png" style="max-height: 150px;" />
+                    <h:link outcome="/s/phono/fijo" value="Pagar Telefonía Fija - CNT"/>
+                </h:panelGrid>
+            </p:fieldset>
+            <p:fieldset legend="Multas de Tránsito" style="margin-bottom:20px">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:graphicImage library="imagenes" name="multa.jpg" style="max-height: 150px;" />
+                    <h:link outcome="/s/multas/multa" value="Pagar Multa de Tránsito"/>
+                </h:panelGrid>
+            </p:fieldset>
+            
+            <p:fieldset legend="Internet" style="margin-bottom:20px">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:graphicImage library="imagenes" name="internet.png" style="max-height: 150px;" />
+                    <h:link outcome="/s/internet/internet" value="Pagar Servicio Internet" style="text-align: right;"/>
+                </h:panelGrid>
+            </p:fieldset>
+            <p:fieldset legend="Crédito en Supermercados" style="margin-bottom:20px">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:graphicImage library="imagenes" name="credito.jpg" style="max-height: 150px;" />
+                    <h:link outcome="/s/internet/internet" value="Pagar Crédito en Supermercados." style="text-align: right;"/>
+                </h:panelGrid>
+            </p:fieldset>
+        </p:panelGrid>
+
+    </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

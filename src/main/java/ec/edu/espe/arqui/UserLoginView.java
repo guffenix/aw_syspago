@@ -49,7 +49,7 @@ public class UserLoginView {
             contextPath = origRequest.getContextPath();
             try {
                 FacesContext.getCurrentInstance().getExternalContext()
-                        .redirect(contextPath + "/u/inicio.xhtml");
+                        .redirect(contextPath + "/u/seleccion-servicio.xhtml");
             } catch (IOException e) {
                 e.printStackTrace();
             }
