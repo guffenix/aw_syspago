@@ -18,10 +18,48 @@
                 <p:growl id="msgs" showDetail="true" />
 
 
-                <p:panelGrid columns="3" layout="grid"> 
-                    A quí todo lo que necesiten desarrollar
+                <p:panelGrid columns="1" layout="grid" class="ui-g-12" style="text-align: center; vertical-align: central;"> 
+                    <p:graphicImage library="imagenes" name="multa.jpg" style="max-height: 70px;" />
+                    <h:outputText value="Multa de Tránsito" />
                 </p:panelGrid>
 
+                <p:panelGrid columns="3" layout="grid" class="ui-g-12" style="text-align: center; vertical-align: central;"> 
+                    
+                    <h:outputLabel for="it-buscar" value="PLACA: *" style="text-align: right !important;" />
+                    <p:inputText id="it-buscar" value="#{searchView.text1}" required="true">
+                        <f:validateLength minimum="2" />
+                    </p:inputText>
+                    <p:commandButton value="BUSCAR" id="cb-buscar" update="growl" actionListener="#{buttonView.buttonAction}" styleClass="ui-priority-primary" />
+                    
+                    
+                    <br/>
+                </p:panelGrid>
+
+                <p:panelGrid columns="1" class="ui-g-12" layout="grid"> 
+                    <!--inicio-->
+                    <p:fieldset legend="INFORMACIÓN" style="margin-bottom:20px;">
+                        <h:panelGrid columns="4" class="ui-g-8" cellpadding="5">
+                            <h:outputLabel for="ot-nombresApellidos" value="Nombres y Apellidos: " />
+                            <h:outputText id="ot-nombresApellidos" value="ABCC-8235"/>
+                            
+                            <h:outputLabel for="ot-cedula" value="Cédula: " />
+                            <h:outputText id="ot-cedula" value="ABCC-8235"/>
+                            
+                            <h:outputLabel for="ot-placaVehiculo" value="Placa Vehículo: " />
+                            <h:outputText id="ot-placaVehiculo" value="ABCC-8235"/>
+                            
+                            <h:outputLabel for="ot-marca" value="Marca: " />
+                            <h:outputText id="ot-marca" value="ABCC-8235"/>
+                            
+                            <h:outputLabel for="ot-modelo" value="Modelo: " />
+                            <h:outputText id="ot-modelo" value="ABCC-8235"/>
+                            
+                            <h:outputLabel for="ot-valorMulta" value="Valor Multa: " />
+                            <h:outputText id="ot-valorMulta" value="ABCC-8235"/>
+                        </h:panelGrid>
+                    </p:fieldset>
+                </p:panelGrid>
+                
             </h:form>
         </ui:define>
     </ui:composition>

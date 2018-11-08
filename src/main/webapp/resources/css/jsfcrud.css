@@ -29,3 +29,7 @@
 .textRight(){
     text-align: right !important;
 }
+
+.panelGridCenter {
+    margin: 0 auto !important;
+}
