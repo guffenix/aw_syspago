@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClienteViewDlg" widgetVar="ClienteViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewClienteTitle}">
+            <h:form id="ClienteViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{clienteController.selected != null}">
+                        <h:outputText value="#{bundle.ViewClienteLabel_cliIdentificacion}"/>
+                        <h:outputText value="#{clienteController.selected.cliIdentificacion}" title="#{bundle.ViewClienteTitle_cliIdentificacion}"/>
+                        <h:outputText value="#{bundle.ViewClienteLabel_cliTipo}"/>
+                        <h:outputText value="#{clienteController.selected.cliTipo}" title="#{bundle.ViewClienteTitle_cliTipo}"/>
+                        <h:outputText value="#{bundle.ViewClienteLabel_cliNombre}"/>
+                        <h:outputText value="#{clienteController.selected.cliNombre}" title="#{bundle.ViewClienteTitle_cliNombre}"/>
+                        <h:outputText value="#{bundle.ViewClienteLabel_cliRazSocial}"/>
+                        <h:outputText value="#{clienteController.selected.cliRazSocial}" title="#{bundle.ViewClienteTitle_cliRazSocial}"/>
+                        <h:outputText value="#{bundle.ViewClienteLabel_cliMovil}"/>
+                        <h:outputText value="#{clienteController.selected.cliMovil}" title="#{bundle.ViewClienteTitle_cliMovil}"/>
+                        <h:outputText value="#{bundle.ViewClienteLabel_cliFijo}"/>
+                        <h:outputText value="#{clienteController.selected.cliFijo}" title="#{bundle.ViewClienteTitle_cliFijo}"/>
+                        <h:outputText value="#{bundle.ViewClienteLabel_cliDireccion}"/>
+                        <h:outputText value="#{clienteController.selected.cliDireccion}" title="#{bundle.ViewClienteTitle_cliDireccion}"/>
+                        <h:outputText value="#{bundle.ViewClienteLabel_cliCodContrapartida}"/>
+                        <h:outputText value="#{clienteController.selected.cliCodContrapartida}" title="#{bundle.ViewClienteTitle_cliCodContrapartida}"/>
+                        <h:outputText value="#{bundle.ViewClienteLabel_viPlaca}"/>
+                        <h:outputText value="#{clienteController.selected.viPlaca}" title="#{bundle.ViewClienteTitle_viPlaca}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ClienteViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

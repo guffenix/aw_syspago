@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetalleMonedaCreateDlg" widgetVar="DetalleMonedaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDetalleMonedaTitle}">
+            <h:form id="DetalleMonedaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{detalleMonedaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateDetalleMonedaLabel_dmonCantidad}" for="dmonCantidad" />
+                        <p:inputText id="dmonCantidad" value="#{detalleMonedaController.selected.dmonCantidad}" title="#{bundle.CreateDetalleMonedaTitle_dmonCantidad}" required="true" requiredMessage="#{bundle.CreateDetalleMonedaRequiredMessage_dmonCantidad}"/>
+                        <p:outputLabel value="#{bundle.CreateDetalleMonedaLabel_dmonTotal}" for="dmonTotal" />
+                        <p:inputText id="dmonTotal" value="#{detalleMonedaController.selected.dmonTotal}" title="#{bundle.CreateDetalleMonedaTitle_dmonTotal}" required="true" requiredMessage="#{bundle.CreateDetalleMonedaRequiredMessage_dmonTotal}"/>
+                        <p:outputLabel value="#{bundle.CreateDetalleMonedaLabel_pago}" for="pago" />
+                        <p:selectOneMenu id="pago" value="#{detalleMonedaController.selected.pago}" required="true" requiredMessage="#{bundle.EditDetalleMonedaRequiredMessage_pago}">
+                            <f:selectItems value="#{pagoController.itemsAvailableSelectOne}"
+                                           var="pagoItem"
+                                           itemValue="#{pagoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDetalleMonedaLabel_tipomoneda}" for="tipomoneda" />
+                        <p:selectOneMenu id="tipomoneda" value="#{detalleMonedaController.selected.tipomoneda}" required="true" requiredMessage="#{bundle.EditDetalleMonedaRequiredMessage_tipomoneda}">
+                            <f:selectItems value="#{tipomonedaController.itemsAvailableSelectOne}"
+                                           var="tipomonedaItem"
+                                           itemValue="#{tipomonedaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detalleMonedaController.create}" value="#{bundle.Save}" update="display,:DetalleMonedaListForm:datalist,:growl" oncomplete="handleSubmit(args,'DetalleMonedaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DetalleMonedaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

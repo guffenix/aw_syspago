@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetalleMonedaViewDlg" widgetVar="DetalleMonedaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDetalleMonedaTitle}">
+            <h:form id="DetalleMonedaViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{detalleMonedaController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDetalleMonedaLabel_dmonCantidad}"/>
+                        <h:outputText value="#{detalleMonedaController.selected.dmonCantidad}" title="#{bundle.ViewDetalleMonedaTitle_dmonCantidad}"/>
+                        <h:outputText value="#{bundle.ViewDetalleMonedaLabel_dmonTotal}"/>
+                        <h:outputText value="#{detalleMonedaController.selected.dmonTotal}" title="#{bundle.ViewDetalleMonedaTitle_dmonTotal}"/>
+                        <h:outputText value="#{bundle.ViewDetalleMonedaLabel_pago}"/>
+                        <h:outputText value="#{detalleMonedaController.selected.pago}" title="#{bundle.ViewDetalleMonedaTitle_pago}"/>
+                        <h:outputText value="#{bundle.ViewDetalleMonedaLabel_tipomoneda}"/>
+                        <h:outputText value="#{detalleMonedaController.selected.tipomoneda}" title="#{bundle.ViewDetalleMonedaTitle_tipomoneda}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DetalleMonedaViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

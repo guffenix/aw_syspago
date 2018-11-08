@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClienteCreateDlg" widgetVar="ClienteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateClienteTitle}">
+            <h:form id="ClienteCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{clienteController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_cliIdentificacion}" for="cliIdentificacion" />
+                        <p:inputText id="cliIdentificacion" value="#{clienteController.selected.cliIdentificacion}" title="#{bundle.CreateClienteTitle_cliIdentificacion}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_cliIdentificacion}"/>
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_cliTipo}" for="cliTipo" />
+                        <p:inputText id="cliTipo" value="#{clienteController.selected.cliTipo}" title="#{bundle.CreateClienteTitle_cliTipo}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_cliTipo}"/>
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_cliNombre}" for="cliNombre" />
+                        <p:inputText id="cliNombre" value="#{clienteController.selected.cliNombre}" title="#{bundle.CreateClienteTitle_cliNombre}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_cliNombre}"/>
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_cliRazSocial}" for="cliRazSocial" />
+                        <p:inputText id="cliRazSocial" value="#{clienteController.selected.cliRazSocial}" title="#{bundle.CreateClienteTitle_cliRazSocial}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_cliRazSocial}"/>
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_cliMovil}" for="cliMovil" />
+                        <p:inputText id="cliMovil" value="#{clienteController.selected.cliMovil}" title="#{bundle.CreateClienteTitle_cliMovil}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_cliMovil}"/>
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_cliFijo}" for="cliFijo" />
+                        <p:inputText id="cliFijo" value="#{clienteController.selected.cliFijo}" title="#{bundle.CreateClienteTitle_cliFijo}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_cliFijo}"/>
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_cliDireccion}" for="cliDireccion" />
+                        <p:inputText id="cliDireccion" value="#{clienteController.selected.cliDireccion}" title="#{bundle.CreateClienteTitle_cliDireccion}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_cliDireccion}"/>
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_cliCodContrapartida}" for="cliCodContrapartida" />
+                        <p:inputText id="cliCodContrapartida" value="#{clienteController.selected.cliCodContrapartida}" title="#{bundle.CreateClienteTitle_cliCodContrapartida}" />
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_viPlaca}" for="viPlaca" />
+                        <p:selectOneMenu id="viPlaca" value="#{clienteController.selected.viPlaca}" >
+                            <f:selectItems value="#{vehiculoController.itemsAvailableSelectOne}"
+                                           var="viPlacaItem"
+                                           itemValue="#{viPlacaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{clienteController.create}" value="#{bundle.Save}" update="display,:ClienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClienteCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ClienteCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

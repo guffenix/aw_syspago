@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipomonedaEditDlg" widgetVar="TipomonedaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTipomonedaTitle}">
+            <h:form id="TipomonedaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tipomonedaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTipomonedaLabel_tmoId}" for="tmoId" />
+                        <p:inputText id="tmoId" value="#{tipomonedaController.selected.tmoId}" title="#{bundle.EditTipomonedaTitle_tmoId}" required="true" requiredMessage="#{bundle.EditTipomonedaRequiredMessage_tmoId}"/>
+                        <p:outputLabel value="#{bundle.EditTipomonedaLabel_tmoTipo}" for="tmoTipo" />
+                        <p:inputText id="tmoTipo" value="#{tipomonedaController.selected.tmoTipo}" title="#{bundle.EditTipomonedaTitle_tmoTipo}" required="true" requiredMessage="#{bundle.EditTipomonedaRequiredMessage_tmoTipo}"/>
+                        <p:outputLabel value="#{bundle.EditTipomonedaLabel_tmoValor}" for="tmoValor" />
+                        <p:inputText id="tmoValor" value="#{tipomonedaController.selected.tmoValor}" title="#{bundle.EditTipomonedaTitle_tmoValor}" required="true" requiredMessage="#{bundle.EditTipomonedaRequiredMessage_tmoValor}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipomonedaController.update}" value="#{bundle.Save}" update="display,:TipomonedaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TipomonedaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TipomonedaEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

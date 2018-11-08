@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PagoCreateDlg" widgetVar="PagoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePagoTitle}">
+            <h:form id="PagoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{pagoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePagoLabel_pagId}" for="pagId" />
+                        <p:inputText id="pagId" value="#{pagoController.selected.pagId}" title="#{bundle.CreatePagoTitle_pagId}" required="true" requiredMessage="#{bundle.CreatePagoRequiredMessage_pagId}"/>
+                        <p:outputLabel value="#{bundle.CreatePagoLabel_pagFecha}" for="pagFecha" />
+                        <p:calendar id="pagFecha" pattern="MM/dd/yyyy HH:mm:ss" value="#{pagoController.selected.pagFecha}" title="#{bundle.EditPagoTitle_pagFecha}" required="true" requiredMessage="#{bundle.EditPagoRequiredMessage_pagFecha}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePagoLabel_pagValor}" for="pagValor" />
+                        <p:inputText id="pagValor" value="#{pagoController.selected.pagValor}" title="#{bundle.CreatePagoTitle_pagValor}" required="true" requiredMessage="#{bundle.CreatePagoRequiredMessage_pagValor}"/>
+                        <p:outputLabel value="#{bundle.CreatePagoLabel_pagEstado}" for="pagEstado" />
+                        <p:inputText id="pagEstado" value="#{pagoController.selected.pagEstado}" title="#{bundle.CreatePagoTitle_pagEstado}" required="true" requiredMessage="#{bundle.CreatePagoRequiredMessage_pagEstado}"/>
+                        <p:outputLabel value="#{bundle.CreatePagoLabel_pagValorSer}" for="pagValorSer" />
+                        <p:inputText id="pagValorSer" value="#{pagoController.selected.pagValorSer}" title="#{bundle.CreatePagoTitle_pagValorSer}" required="true" requiredMessage="#{bundle.CreatePagoRequiredMessage_pagValorSer}"/>
+                        <p:outputLabel value="#{bundle.CreatePagoLabel_pagFechaCorte}" for="pagFechaCorte" />
+                        <p:calendar id="pagFechaCorte" pattern="MM/dd/yyyy HH:mm:ss" value="#{pagoController.selected.pagFechaCorte}" title="#{bundle.EditPagoTitle_pagFechaCorte}" required="true" requiredMessage="#{bundle.EditPagoRequiredMessage_pagFechaCorte}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePagoLabel_cliIdentificacion}" for="cliIdentificacion" />
+                        <p:selectOneMenu id="cliIdentificacion" value="#{pagoController.selected.cliIdentificacion}" required="true" requiredMessage="#{bundle.EditPagoRequiredMessage_cliIdentificacion}">
+                            <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"
+                                           var="cliIdentificacionItem"
+                                           itemValue="#{cliIdentificacionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreatePagoLabel_serId}" for="serId" />
+                        <p:selectOneMenu id="serId" value="#{pagoController.selected.serId}" required="true" requiredMessage="#{bundle.EditPagoRequiredMessage_serId}">
+                            <f:selectItems value="#{servicioController.itemsAvailableSelectOne}"
+                                           var="serIdItem"
+                                           itemValue="#{serIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreatePagoLabel_usuId}" for="usuId" />
+                        <p:selectOneMenu id="usuId" value="#{pagoController.selected.usuId}" required="true" requiredMessage="#{bundle.EditPagoRequiredMessage_usuId}">
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="usuIdItem"
+                                           itemValue="#{usuIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{pagoController.create}" value="#{bundle.Save}" update="display,:PagoListForm:datalist,:growl" oncomplete="handleSubmit(args,'PagoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PagoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

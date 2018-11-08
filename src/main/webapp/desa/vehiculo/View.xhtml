@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VehiculoViewDlg" widgetVar="VehiculoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewVehiculoTitle}">
+            <h:form id="VehiculoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{vehiculoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewVehiculoLabel_viPlaca}"/>
+                        <h:outputText value="#{vehiculoController.selected.viPlaca}" title="#{bundle.ViewVehiculoTitle_viPlaca}"/>
+                        <h:outputText value="#{bundle.ViewVehiculoLabel_viMarca}"/>
+                        <h:outputText value="#{vehiculoController.selected.viMarca}" title="#{bundle.ViewVehiculoTitle_viMarca}"/>
+                        <h:outputText value="#{bundle.ViewVehiculoLabel_viModelo}"/>
+                        <h:outputText value="#{vehiculoController.selected.viModelo}" title="#{bundle.ViewVehiculoTitle_viModelo}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="VehiculoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

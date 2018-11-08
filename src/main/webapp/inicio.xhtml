@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Sistema de Pago</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body>
+
+    </h:body>
+    <h:form>            
+
+        <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+
+        <p:layout fullPage="true">
+
+            <p:layoutUnit position="north" size="75">
+                <ui:include src="/WEB-INF/menuTopBar.xhtml" />
+            </p:layoutUnit>
+
+            <!--            <p:layoutUnit position="south" size="100" header="Bottom" resizable="true" closable="true" collapsible="true">
+                            <h:outputText value="South unit content." />
+                        </p:layoutUnit>-->
+
+            <p:layoutUnit position="west"  >
+                <p:menu toggleable="true">
+                    <p:submenu label="Menu">
+                        <p:menuitem value="Opción 1" actionListener="#{util.ejemplo}" update="growl" icon="ui-icon-disk" />
+                        <p:menuitem value="Opción 2" actionListener="#{util.ejemplo2}" update="growl" icon="ui-icon-arrowrefresh-1-w"/>
+                    </p:submenu>
+                </p:menu>
+            </p:layoutUnit>
+            <!--
+                        <p:layoutUnit position="east" size="200" header="Right" resizable="true" closable="true" collapsible="true" effect="drop">
+                            <h:outputText value="Right unit content." />
+                        </p:layoutUnit>-->
+
+            <p:layoutUnit position="center">
+                Contenido desarrollado
+            </p:layoutUnit>
+
+        </p:layout>
+    </h:form>
+</html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PagoViewDlg" widgetVar="PagoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPagoTitle}">
+            <h:form id="PagoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{pagoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPagoLabel_pagId}"/>
+                        <h:outputText value="#{pagoController.selected.pagId}" title="#{bundle.ViewPagoTitle_pagId}"/>
+                        <h:outputText value="#{bundle.ViewPagoLabel_pagFecha}"/>
+                        <h:outputText value="#{pagoController.selected.pagFecha}" title="#{bundle.ViewPagoTitle_pagFecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPagoLabel_pagValor}"/>
+                        <h:outputText value="#{pagoController.selected.pagValor}" title="#{bundle.ViewPagoTitle_pagValor}"/>
+                        <h:outputText value="#{bundle.ViewPagoLabel_pagEstado}"/>
+                        <h:outputText value="#{pagoController.selected.pagEstado}" title="#{bundle.ViewPagoTitle_pagEstado}"/>
+                        <h:outputText value="#{bundle.ViewPagoLabel_pagValorSer}"/>
+                        <h:outputText value="#{pagoController.selected.pagValorSer}" title="#{bundle.ViewPagoTitle_pagValorSer}"/>
+                        <h:outputText value="#{bundle.ViewPagoLabel_pagFechaCorte}"/>
+                        <h:outputText value="#{pagoController.selected.pagFechaCorte}" title="#{bundle.ViewPagoTitle_pagFechaCorte}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPagoLabel_cliIdentificacion}"/>
+                        <h:outputText value="#{pagoController.selected.cliIdentificacion}" title="#{bundle.ViewPagoTitle_cliIdentificacion}"/>
+                        <h:outputText value="#{bundle.ViewPagoLabel_serId}"/>
+                        <h:outputText value="#{pagoController.selected.serId}" title="#{bundle.ViewPagoTitle_serId}"/>
+                        <h:outputText value="#{bundle.ViewPagoLabel_usuId}"/>
+                        <h:outputText value="#{pagoController.selected.usuId}" title="#{bundle.ViewPagoTitle_usuId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PagoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
