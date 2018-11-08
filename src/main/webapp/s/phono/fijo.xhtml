@@ -18,9 +18,54 @@
                 <p:growl id="msgs" showDetail="true" />
 
 
-                <p:panelGrid columns="3" layout="grid"> 
-                    A quí todo lo que necesiten desarrollar
-                </p:panelGrid>
+                <center>
+                    <p:inputText placeholder="Número de teléfono" value="#{clienteController.selected.cliMovil}" style="width: 150px;" ></p:inputText>
+                    
+                    <p:commandButton value="Buscar" actionListener="#{clienteController.getIems()}"></p:commandButton>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    
+                    <h:outputLabel value="DATOS DEL CLIENTE Y DEL SERVICIO" />
+
+                    <h:panelGrid columns="4" cellpadding="5">
+                        <h:outputLabel for="nbap" value="Nombre y Apellidos:" />
+                        <p:inputText disabled="true" value="#{clienteController.selected.cliNombre}"/>
+
+                        <h:outputLabel for="cedula" value="Cédula:" />
+                        <p:inputText disabled="true" value="#{clienteController.selected.cliIdentificacion}" />
+
+                        <h:outputLabel for="vlPagar" value="Valor a Pagar:" />
+                        <p:inputText disabled="true" />
+
+                        <h:outputLabel for="numServicio" value="Detalle del servicio:" />
+                        <p:inputText disabled="true"/>
+                    </h:panelGrid>
+                    <h:outputLabel value="INGRESO DE VALORES" />
+                    <h:panelGrid columns="4" cellpadding="5">
+                        <h:outputLabel for="veinte" value="20:" />
+                        <p:inputText />
+
+                        <h:outputLabel for="diez" value="10:" />
+                        <p:inputText />
+
+                        <h:outputLabel for="cinco" value="5:" />
+                        <p:inputText />
+
+                        <h:outputLabel for="uno" value="1:" />
+                        <p:inputText />
+                    </h:panelGrid>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <h:outputLabel for="vFinal" value="Valor receptado:" />
+                        <p:inputText disabled="true"/>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <p:commandButton value="REGISTRAR PAGO"></p:commandButton>
+                        
+                </center>
 
             </h:form>
         </ui:define>
