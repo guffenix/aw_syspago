@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
         <title><ui:insert name="title">Default Title</ui:insert></title>
@@ -12,6 +13,26 @@
     </h:head>
 
     <h:body>
+        <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
+    <f:facet name="default">
+        <h:outputText value="Status: StandBy" />
+    </f:facet>
+     
+    <f:facet name="start">
+        <p:graphicImage style="width: 250px;" name="/imagenes/load.gif" />
+    </f:facet>
+ 
+    <f:facet name="complete">
+        <h:outputText value="Status: Completed" />
+    </f:facet>
+</p:ajaxStatus>
+ 
+<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+             
+<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+    <p:graphicImage style="width: 250px;" name="/imagenes/load.gif" />
+</p:dialog>
+ 
 
         <p:growl id="growl" life="3000" />
 

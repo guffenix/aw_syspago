@@ -1,11 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ec.edu.espe.arqui.facade;
 
 import ec.edu.espe.arqui.entidades.Cliente;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,4 +27,19 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
         super(Cliente.class);
     }
     
+    public Cliente obtenerPorPlaca(String _placa) {
+        return (Cliente) getEntityManager().createNativeQuery("select * from cliente c where c.vi_placa = ?1").setParameter(1, _placa).getSingleResult();
+    }
+    
+    public Cliente obtenerCliente(String _placa) {
+            return (Cliente)getEntityManager().createQuery("Select c from Cliente c where c.viPlaca.viPlaca = ?1").setParameter(1, _placa).getSingleResult();
+    }
+    
+    public int countAllwithSQL() {
+        int total = (int) em.createNamedQuery("Player.countAllwithSQL")
+                .getSingleResult();
+        return total;
+    }
+
+ 
 }
