@@ -31,15 +31,8 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
         return (Cliente) getEntityManager().createNativeQuery("select * from cliente c where c.vi_placa = ?1").setParameter(1, _placa).getSingleResult();
     }
     
-    public Cliente obtenerCliente(String _placa) {
-            return (Cliente)getEntityManager().createQuery("Select c from Cliente c where c.viPlaca.viPlaca = ?1").setParameter(1, _placa).getSingleResult();
+    public Cliente obtenerClienteByPlaca(String _placa) {
+        return (Cliente)getEntityManager().createQuery("Select c from Cliente c where c.viPlaca.viPlaca = ?1").setParameter(1, _placa).getSingleResult();
     }
     
-    public int countAllwithSQL() {
-        int total = (int) em.createNamedQuery("Player.countAllwithSQL")
-                .getSingleResult();
-        return total;
-    }
-
- 
 }

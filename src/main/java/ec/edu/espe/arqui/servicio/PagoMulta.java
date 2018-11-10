@@ -2,9 +2,11 @@
 package ec.edu.espe.arqui.servicio;
 
 import ec.edu.espe.arqui.entidades.Cliente;
+import ec.edu.espe.arqui.entidades.Pago;
 import ec.edu.espe.arqui.entidades.Tipomoneda;
 import ec.edu.espe.arqui.entidades.Vehiculo;
 import ec.edu.espe.arqui.facade.ClienteFacade;
+import ec.edu.espe.arqui.facade.PagoFacade;
 import ec.edu.espe.arqui.facade.VehiculoFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,14 +27,17 @@ public class PagoMulta implements Serializable {
     @EJB
     private VehiculoFacade vehiculoFacade;
     @EJB
-    ClienteFacade clienteFacade;
+    private ClienteFacade clienteFacade;
+    @EJB
+    private PagoFacade pagoFacade;
 
     
     private Tipomoneda tipoMoneda;
     private List<Tipomoneda> listaMoneda;
     
     private Cliente cliente;
-    Vehiculo vehiculo;
+    private Vehiculo vehiculo;
+    private Pago pago;
     private String identificacionCliente;
     
 
@@ -47,8 +52,12 @@ public class PagoMulta implements Serializable {
     public void buscarMulta(){
         this.vehiculo = vehiculoFacade.find(this.identificacionCliente);
         if(this.vehiculo != null){
-            System.out.println("-> "+this.vehiculo.getViModelo());
-            this.cliente = this.clienteFacade.obtenerCliente(this.vehiculo.getViPlaca());
+            this.cliente = this.clienteFacade.obtenerClienteByPlaca(this.vehiculo.getViPlaca());
+            if(this.cliente != null){
+                this.pago = this.pagoFacade.obtenerPagoByCliente(this.cliente.getCliIdentificacion());
+            }
+        }else{
+            this.cliente = new Cliente();
         }
     }
     public PagoMulta(Tipomoneda tipoMoneda, List<Tipomoneda> listaMoneda) {
@@ -104,6 +113,22 @@ public class PagoMulta implements Serializable {
 
     public void setIdentificacionCliente(String identificacionCliente) {
         this.identificacionCliente = identificacionCliente;
+    }
+
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
+
+    public Pago getPago() {
+        return pago;
+    }
+
+    public void setPago(Pago pago) {
+        this.pago = pago;
     }
     
 }
