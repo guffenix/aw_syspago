@@ -35,4 +35,18 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
         return (Cliente)getEntityManager().createQuery("Select c from Cliente c where c.viPlaca.viPlaca = ?1").setParameter(1, _placa).getSingleResult();
     }
     
+    public Cliente obtenerClientePorContrapartida(String _contrapartida)
+    {
+        List<Cliente> listaR = getEntityManager().createNamedQuery("Cliente.findByCliCodContrapartida").setParameter("cliCodContrapartida", _contrapartida).getResultList();
+        if(listaR != null && !listaR.isEmpty())
+        {
+            return listaR.get(0);
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
+    
 }

@@ -18,8 +18,80 @@
                 <p:growl id="msgs" showDetail="true" />
 
 
-                <p:panelGrid columns="3" layout="grid"> 
-                    A quí todo lo que necesiten desarrollar
+                <p:panelGrid columns="3" layout="grid" > 
+
+                    <h:form>
+                        <p:panel id="panel" header="Pago Crédito Supermercado" style="margin-bottom:10px;">
+                            <p:messages id="messages" />
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputLabel for="name" value="Identificación del Cliente:" />
+                                <p:inputText id="name" required="true" />
+
+                                <p:commandButton value="Buscar" update="panel"  />
+
+                            </h:panelGrid>
+                        </p:panel>
+                        <p:fieldset legend="Datos del Cliente y el Servicio" style="margin-bottom:20px">
+                            <h:panelGrid columns="2" cellpadding="5">
+
+                                <h:outputLabel for="nombre" value="Nombre y Apellido:" />
+                                <p:inputText id="nombre" required="true" disabled="true"/>
+
+                                <h:outputLabel for="cedula" value="Identificacion:" />
+                                <p:inputText id="cedula" required="true" disabled="true"/>
+
+                                <h:outputLabel for="direccion" value="Dirección:" />
+                                <p:inputText id="direccion" required="true" disabled="true"/>
+
+                                <h:outputLabel for="servicio" value="Servicio:" />
+                                <p:inputText id="servicio" required="true" disabled="true"/>
+
+                                <h:outputLabel for="valor" value="Valor a pagar:" />
+                                <p:inputText id="valor" required="true" disabled="true"/>
+
+                            </h:panelGrid>                            
+
+                        </p:fieldset>
+
+
+                    </h:form>
+                    <p:fieldset legend="Dinero Receptado " style="margin: auto" >
+                        <h:panelGrid columns="2" cellpadding="5">
+
+
+                            <h:outputLabel for="uno" value="0.01:" />
+                            <p:inputText id="uno"  style="width:30px;"/>
+
+                            <h:outputLabel for="cinco" value="0.05:" />
+                            <p:inputText id="cinco"  style="width:30px;"/>
+
+                            <h:outputLabel for="diez" value="0.10:" />
+                            <p:inputText id="diez"  style="width:30px;"/>
+
+                            <h:outputLabel for="vcinco" value="0.25:" />
+                            <p:inputText id="vcinco"  style="width:30px;"/>
+
+
+
+
+                        </h:panelGrid>  
+
+                        <h:panelGrid columns="3" cellpadding="5"  >
+                            <h:outputLabel for="cincuenta" value="0.50:" />
+                            <p:inputText id="cincuenta"  style="width:30px;"/>
+
+                        </h:panelGrid>
+                        <br></br>
+                        <h:outputLabel for="vFinal" value="Valor receptado:" />
+                        <p:inputText disabled="true"/>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <p:commandButton value="REGISTRAR PAGO"></p:commandButton>
+
+
+                    </p:fieldset>
+
                 </p:panelGrid>
 
             </h:form>

@@ -30,6 +30,11 @@ public class ClienteController implements Serializable {
 
     public ClienteController() {
     }
+    public Cliente buscarCliente(Cliente selected)
+    {
+        
+        return selected;
+    }
 
     public Cliente getSelected() {
         return selected;
@@ -116,6 +121,7 @@ public class ClienteController implements Serializable {
     public List<Cliente> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
+    
 
     public List<Cliente> getItemsAvailableSelectOne() {
         return getFacade().findAll();
