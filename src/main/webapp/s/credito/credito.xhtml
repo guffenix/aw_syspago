@@ -14,87 +14,90 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form>
-                <p:growl id="msgs" showDetail="true" />
+            <center>
+                <h:form>
+                    <p:growl id="msgs" showDetail="true" autoUpdate="true"/> 
+
+                    <h:form id="frm">
+
+                        <p:messages id="messages"/>
+
+                        <h:panelGrid columns="3" style="align-content: center" id="all-todo">
+
+                            <p:fieldset legend="Pago Crédito de Tarjeta" style="margin-bottom: 20px" id="fs-cliente1">   
+                                <h:panelGrid columns="2">
+                                    <h:outputLabel for="name" value="Identificación del Cliente:" id="ide"/>
+                                    <p:inputText id="name" required="true" value="#{pagoCredito.identificacionIngresada}"/>
+                                    <p:commandButton value="Buscar" actionListener="#{pagoCredito.buscar()}" update="fs-cliente fs-dinero"  />
+                                </h:panelGrid>
+                            </p:fieldset>
+
+                            <p:fieldset legend="Datos del Cliente y el Servicio" style="margin-bottom:20px" id="fs-cliente">
+                                <h:panelGrid columns="2" >
+                                    <h:outputLabel for="nombre" value="Nombre y Apellido:" />
+                                    <p:inputText id="nombre" required="true" readonly="true" value="#{pagoCredito.clienteEncontrado.cliNombre}"/>
+
+                                    <h:outputLabel for="cedula" value="Identificacion:" />
+                                    <p:inputText id="cedula" required="true" readonly="true" value="#{pagoCredito.clienteEncontrado.cliIdentificacion}"/>
+
+                                    <h:outputLabel for="direccion" value="Dirección:" />
+                                    <p:inputText id="direccion" required="true" readonly="true" value="${pagoCredito.clienteEncontrado.cliDireccion}"/>
+
+                                    <h:outputLabel for="servicio" value="Servicio:" />
+                                    <p:inputText id="servicio" required="true" readonly="true" value="Crédito"/>
+
+                                    <h:outputLabel for="valor" value="Valor a pagar:" />
+                                    <p:inputText id="valor" required="true" readonly="true" disabled="#{pagoCredito.clienteEncontrado eq null}" value="#{pagoCredito.nuevoPago.pagValor}"/>
+                                </h:panelGrid>   
+                            </p:fieldset>
+
+                            <p:fieldset legend="Dinero Receptado" style="margin-bottom:20px" id="fs-dinero" >
+                                <h:panelGrid columns="2" >
+                                    <h:outputLabel for="uno" value="0.01:" />
+                                    <p:inputText id="uno" disabled="#{pagoCredito.clienteEncontrado eq null}" value="#{pagoCredito.contadorCentavo}"  style="width:30px;">
+                                        <p:ajax event="blur" listener="#{pagoCredito.actualizarEstado()}" update="vFinal vueto" global="false"/>
+                                    </p:inputText>
+
+                                    <h:outputLabel for="cinco" value="0.05:" />
+                                    <p:inputText id="cinco" disabled="#{pagoCredito.clienteEncontrado eq null}" value="#{pagoCredito.contadorCincoCentavos}" style="width:30px;">
+                                        <p:ajax event="blur" listener="#{pagoCredito.actualizarEstado()}" update="vFinal vueto" global="false"/>
+                                    </p:inputText>
 
 
-                <p:panelGrid columns="3" layout="grid" > 
+                                    <h:outputLabel for="diez" value="1" />
+                                    <p:inputText id="diez" disabled="#{pagoCredito.clienteEncontrado eq null}" value="#{pagoCredito.contadorUnDolar}" style="width:30px;">
+                                        <p:ajax event="blur" listener="#{pagoCredito.actualizarEstado()}" update="vFinal vueto" global="false"/>
+                                    </p:inputText>
 
-                    <h:form>
-                        <p:panel id="panel" header="Pago Crédito Supermercado" style="margin-bottom:10px;">
-                            <p:messages id="messages" />
-                            <h:panelGrid columns="2" cellpadding="5">
-                                <h:outputLabel for="name" value="Identificación del Cliente:" />
-                                <p:inputText id="name" required="true" />
+                                    <h:outputLabel for="vcinco" value="5" />
+                                    <p:inputText id="vcinco" disabled="#{pagoCredito.clienteEncontrado eq null}" value="#{pagoCredito.contadorCincoDolares}" style="width:30px;">
+                                        <p:ajax event="blur" listener="#{pagoCredito.actualizarEstado()}" update="vFinal vueto" global="false"/>
+                                    </p:inputText>
 
-                                <p:commandButton value="Buscar" update="panel"  />
+                                    <h:outputLabel for="diez" value="10:" />
+                                    <p:inputText id="cincuenta" disabled="#{pagoCredito.clienteEncontrado eq null}" value="#{pagoCredito.contadorDiezDolares}" style="width:30px;">
+                                        <p:ajax event="blur" listener="#{pagoCredito.actualizarEstado()}" update="vFinal vueto" global="false"/>
+                                    </p:inputText>                                        
+                                </h:panelGrid>  
 
-                            </h:panelGrid>
-                        </p:panel>
-                        <p:fieldset legend="Datos del Cliente y el Servicio" style="margin-bottom:20px">
-                            <h:panelGrid columns="2" cellpadding="5">
-
-                                <h:outputLabel for="nombre" value="Nombre y Apellido:" />
-                                <p:inputText id="nombre" required="true" disabled="true"/>
-
-                                <h:outputLabel for="cedula" value="Identificacion:" />
-                                <p:inputText id="cedula" required="true" disabled="true"/>
-
-                                <h:outputLabel for="direccion" value="Dirección:" />
-                                <p:inputText id="direccion" required="true" disabled="true"/>
-
-                                <h:outputLabel for="servicio" value="Servicio:" />
-                                <p:inputText id="servicio" required="true" disabled="true"/>
-
-                                <h:outputLabel for="valor" value="Valor a pagar:" />
-                                <p:inputText id="valor" required="true" disabled="true"/>
-
-                            </h:panelGrid>                            
-
-                        </p:fieldset>
-
-
-                    </h:form>
-                    <p:fieldset legend="Dinero Receptado " style="margin: auto" >
-                        <h:panelGrid columns="2" cellpadding="5">
-
-
-                            <h:outputLabel for="uno" value="0.01:" />
-                            <p:inputText id="uno"  style="width:30px;"/>
-
-                            <h:outputLabel for="cinco" value="0.05:" />
-                            <p:inputText id="cinco"  style="width:30px;"/>
-
-                            <h:outputLabel for="diez" value="0.10:" />
-                            <p:inputText id="diez"  style="width:30px;"/>
-
-                            <h:outputLabel for="vcinco" value="0.25:" />
-                            <p:inputText id="vcinco"  style="width:30px;"/>
-
-
-
-
-                        </h:panelGrid>  
-
-                        <h:panelGrid columns="3" cellpadding="5"  >
-                            <h:outputLabel for="cincuenta" value="0.50:" />
-                            <p:inputText id="cincuenta"  style="width:30px;"/>
+                                <br></br>
+                                <h:outputLabel for="vFinal" value="Valor receptado:" />
+                                <p:inputText id="vFinal" readonly="true" value="#{pagoCredito.valorReceptado}" style="width:40px;"/>
+                                <br></br>
+                                <br></br>
+                                <h:outputLabel for="vueto" value="Cambio:" style="padding-right: 48px;"/>
+                                <p:inputText  id="vueto" readonly="true" value="#{pagoCredito.cambio}" style="width:40px;"/>
+                                <br></br>
+                                <br></br>
+                                <p:commandButton value="REGISTRAR PAGO" actionListener="#{pagoCredito.registrarPago()}" update="all-todo"/>
+                            </p:fieldset>
 
                         </h:panelGrid>
-                        <br></br>
-                        <h:outputLabel for="vFinal" value="Valor receptado:" />
-                        <p:inputText disabled="true"/>
-                        <br></br>
-                        <br></br>
-                        <br></br>
-                        <p:commandButton value="REGISTRAR PAGO"></p:commandButton>
 
+                    </h:form>
+                </h:form>
+            </center>
 
-                    </p:fieldset>
-
-                </p:panelGrid>
-
-            </h:form>
         </ui:define>
     </ui:composition>
 
