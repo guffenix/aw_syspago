@@ -14,57 +14,93 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form>
+            <h:form id="fijoForm">
                 <p:growl id="msgs" showDetail="true" />
-
-
                 <center>
-                    <p:inputText placeholder="Número de teléfono" value="#{clienteController.selected.cliMovil}" style="width: 150px;" ></p:inputText>
-                    
-                    <p:commandButton value="Buscar" actionListener="#{clienteController.getIems()}"></p:commandButton>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    
-                    <h:outputLabel value="DATOS DEL CLIENTE Y DEL SERVICIO" />
+                    <p:fieldset legend="Datos del servicio" style="margin-bottom:20px ">
+                        <p:inputText placeholder="Número de cédula" value="#{pagoFijo.numFijo}" style="width: 150px;" ></p:inputText>
+                        <p:commandButton value="Buscar" actionListener="#{pagoFijo.buscar()}" update="fs-dclientes"></p:commandButton>
+                    </p:fieldset>
 
-                    <h:panelGrid columns="4" cellpadding="5">
-                        <h:outputLabel for="nbap" value="Nombre y Apellidos:" />
-                        <p:inputText disabled="true" value="#{clienteController.selected.cliNombre}"/>
 
-                        <h:outputLabel for="cedula" value="Cédula:" />
-                        <p:inputText disabled="true" value="#{clienteController.selected.cliIdentificacion}" />
+                    <p:fieldset legend="Datos del cliente y del servicio" style="margin-bottom:20px " id="fs-dclientes">
+                        <h:panelGrid columns="4" cellpadding="5">
+                            <h:outputLabel for="nbap" value="Nombre y Apellidos:" />
+                            <p:inputText id="nbap" disabled="true" value="#{pagoFijo.clienteEncontrado.cliNombre}"/>
 
-                        <h:outputLabel for="vlPagar" value="Valor a Pagar:" />
-                        <p:inputText disabled="true" />
+                            <h:outputLabel for="cedula" value="Cédula:" />
+                            <p:inputText id="cedula" disabled="true" value="#{pagoFijo.clienteEncontrado.cliIdentificacion}" />
 
-                        <h:outputLabel for="numServicio" value="Detalle del servicio:" />
-                        <p:inputText disabled="true"/>
-                    </h:panelGrid>
-                    <h:outputLabel value="INGRESO DE VALORES" />
-                    <h:panelGrid columns="4" cellpadding="5">
-                        <h:outputLabel for="veinte" value="20:" />
-                        <p:inputText />
+                            <h:outputLabel for="vlPagar" value="Valor a Pagar:" />
+                            <p:inputText id="vlPagar" disabled="true" value="#{pagoFijo.nuevoPago.pagValor}" />
 
-                        <h:outputLabel for="diez" value="10:" />
-                        <p:inputText />
+                            <h:outputLabel for="numServicio" value="Detalle del servicio:" />
+                            <p:inputText id="numServicio" disabled="true" value="TELEFONIA FIJA"/>
+                        </h:panelGrid>
+                    </p:fieldset>
 
-                        <h:outputLabel for="cinco" value="5:" />
-                        <p:inputText />
+                    <p:fieldset legend="Registro de Caja" style="margin-bottom:20px " id="fs-mcaja">
+                        <h:panelGrid columns="4" cellpadding="5">
+                            <h:outputLabel for="veinte" value="20:" />
+                            <p:inputText id="veinte" value="#{pagoFijo.contadorVeinteDolares}">
+                                <p:ajax event="blur" listener="#{pagoFijo.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
 
-                        <h:outputLabel for="uno" value="1:" />
-                        <p:inputText />
-                    </h:panelGrid>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <h:outputLabel for="vFinal" value="Valor receptado:" />
-                        <p:inputText disabled="true"/>
-                        <br></br>
-                        <br></br>
-                        <br></br>
-                        <p:commandButton value="REGISTRAR PAGO"></p:commandButton>
-                        
+                            <h:outputLabel for="diez" value="10:" />
+                            <p:inputText id="diez" value="#{pagoFijo.contadorDiezDolares}">
+                                <p:ajax event="blur" listener="#{pagoFijo.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+
+                            <h:outputLabel for="cinco" value="5:" />
+                            <p:inputText id="cinco" value="#{pagoFijo.contadorCincoDolares}">
+                                <p:ajax event="blur" listener="#{pagoFijo.actualizarEstado()}" update="vFinal vuelto" global="false"/>                            
+                            </p:inputText>
+
+                            <h:outputLabel for="uno" value="1:" />
+                            <p:inputText id="uno" value="#{pagoFijo.contadorUnDolar}">
+                                <p:ajax event="blur" listener="#{pagoFijo.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+                                
+                            
+                            <h:outputLabel for="uct" value="1:" />
+                            <p:inputText id="uct" value="#{pagoFijo.contadorDolarCentavos}">
+                                <p:ajax event="blur" listener="#{pagoFijo.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+                            
+                            <h:outputLabel for="cin" value="0.5:" />
+                            <p:inputText id="cin" value="#{pagoFijo.contadorCincuentaCentavos}">
+                                <p:ajax event="blur" listener="#{pagoFijo.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+                            
+                            <h:outputLabel for="vcin" value="0.25:" />
+                            <p:inputText id="vcin" value="#{pagoFijo.contadorVcincoCentavos}">
+                                <p:ajax event="blur" listener="#{pagoFijo.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+                            
+                            <h:outputLabel for="dct" value="0.10:" />
+                            <p:inputText id="dct" value="#{pagoFijo.contadorDiezCentavos}">
+                                <p:ajax event="blur" listener="#{pagoFijo.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+                            
+                            <h:outputLabel for="cct" value="0.05:" />
+                            <p:inputText id="cct" value="#{pagoFijo.contadorCincoCentavos}">
+                                <p:ajax event="blur" listener="#{pagoFijo.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+                            
+                            <h:outputLabel for="ucct" value="0.01:" />
+                            <p:inputText id="ucct" value="#{pagoFijo.contadorCentavo}">
+                                <p:ajax event="blur" listener="#{pagoFijo.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+                            
+                            <h:outputLabel for="vFinal" value="Valor Receptado:" />
+                            <p:inputText id="vFinal" value="#{pagoFijo.valorReceptado}"/>
+                            
+                            <h:outputLabel for="vuelto" value="Cambio:" />
+                            <p:inputText id="vuelto" value="#{pagoFijo.cambio}"/> 
+                        </h:panelGrid>
+                        <p:commandButton value="REGISTRAR PAGO" actionListener="#{pagoFijo.registrarPago()}" update="fs-mcaja"></p:commandButton>
+                    </p:fieldset>                    
+
                 </center>
 
             </h:form>
