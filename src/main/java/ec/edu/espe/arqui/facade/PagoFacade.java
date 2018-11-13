@@ -32,7 +32,7 @@ public class PagoFacade extends AbstractFacade<Pago> {
     }
 
     public Pago obtenerPagoByCliente(String _identificacion) {
-        BigDecimal serId = BigDecimal.valueOf(4);
+        BigDecimal serId = BigDecimal.valueOf(25);
         BigInteger pagEstado = BigInteger.valueOf(1);
         em.getEntityManagerFactory().getCache().evictAll();
         return (Pago) getEntityManager()
@@ -60,6 +60,22 @@ public class PagoFacade extends AbstractFacade<Pago> {
 
     public Pago obtenerPago(String _identificacion) {
         BigDecimal serId = BigDecimal.valueOf(22);
+        BigInteger pagEstado = BigInteger.valueOf(1);
+        em.getEntityManagerFactory().getCache().evictAll();
+        List<Pago> listaR = getEntityManager()
+                .createQuery("Select p from Pago p where p.serId.serId = ?1 AND p.cliIdentificacion.cliIdentificacion = ?2 AND p.pagEstado = ?3")
+                .setParameter(1, serId)
+                .setParameter(2, _identificacion)
+                .setParameter(3, pagEstado).getResultList();
+        if (listaR != null && !listaR.isEmpty()) {
+            return listaR.get(0);
+        } else {
+            return null;
+        }
+    }
+    
+    public Pago obtenerPagoInternet(String _identificacion) {
+        BigDecimal serId = BigDecimal.valueOf(26);
         BigInteger pagEstado = BigInteger.valueOf(1);
         em.getEntityManagerFactory().getCache().evictAll();
         List<Pago> listaR = getEntityManager()

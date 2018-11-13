@@ -14,8 +14,8 @@
         </ui:define>
 
         <ui:define name="body">
+            <p:growl id="msgs" showDetail="false" autoUpdate="true" />
             <h:form id="fijoForm">
-                <p:growl id="msgs" showDetail="true" />
                 <center>
                     <p:fieldset legend="Datos del servicio" style="margin-bottom:20px ">
                         <p:inputText placeholder="Número de cédula" value="#{pagoFijo.numFijo}" style="width: 150px;" ></p:inputText>

@@ -14,13 +14,104 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form>
-                <p:growl id="msgs" showDetail="true" />
+            <p:growl id="msgs" showDetail="true" autoUpdate="true"/> 
+
+            <h:form id="frm">
+
+                <p:messages id="messages"/>
+
+                <h:panelGrid columns="3" style="align-content: center" id="all-todo">
+
+                    <p:fieldset legend="Pago Crédito de Tarjeta" style="margin-bottom: 20px" id="fs-cliente1">   
+                        <h:panelGrid columns="3">
+                            <h:outputLabel for="name" value="Identificación del Cliente:" id="ide"/>
+                            <p:inputText id="name" required="true" value="#{pagoInternet.identificacionIngresada}"/>
+                            <p:commandButton value="Buscar" actionListener="#{pagoInternet.buscar()}" update="fs-cliente fs-mcaja"  />
+                        </h:panelGrid>
+                    </p:fieldset>
+
+                    <p:fieldset legend="Datos del Cliente y el Servicio" style="margin-bottom:20px" id="fs-cliente">
+                        <h:panelGrid columns="2" >
+                            <h:outputLabel for="nombre" value="Nombre y Apellido:" />
+                            <p:inputText id="nombre" required="true" readonly="true" value="#{pagoInternet.clienteEncontrado.cliNombre}"/>
+
+                            <h:outputLabel for="cedula" value="Identificacion:" />
+                            <p:inputText id="cedula" required="true" readonly="true" value="#{pagoInternet.clienteEncontrado.cliIdentificacion}"/>
+
+                            <h:outputLabel for="direccion" value="Dirección:" />
+                            <p:inputText id="direccion" required="true" readonly="true" value="${pagoInternet.clienteEncontrado.cliDireccion}"/>
+
+                            <h:outputLabel for="servicio" value="Servicio:" />
+                            <p:inputText id="servicio" required="true" readonly="true" value="Internet"/>
+
+                            <h:outputLabel for="valor" value="Valor a pagar:" />
+                            <p:inputText id="valor" required="true" readonly="true" disabled="#{pagoInternet.clienteEncontrado eq null}" value="#{pagoInternet.nuevoPago.pagValor}"/>
+                        </h:panelGrid>   
+                    </p:fieldset>
+
+                    <p:fieldset legend="Registro de Caja" style="margin-bottom:20px " id="fs-mcaja">
+                        <h:panelGrid columns="4" cellpadding="5">
+                            <h:outputLabel for="veinte" value="20:" />
+                            <p:inputText id="veinte" value="#{pagoInternet.contadorVeinteDolares}">
+                                <p:ajax event="blur" listener="#{pagoInternet.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+
+                            <h:outputLabel for="diez" value="10:" />
+                            <p:inputText id="diez" value="#{pagoInternet.contadorDiezDolares}">
+                                <p:ajax event="blur" listener="#{pagoInternet.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+
+                            <h:outputLabel for="cinco" value="5:" />
+                            <p:inputText id="cinco" value="#{pagoInternet.contadorCincoDolares}">
+                                <p:ajax event="blur" listener="#{pagoInternet.actualizarEstado()}" update="vFinal vuelto" global="false"/>                            
+                            </p:inputText>
+
+                            <h:outputLabel for="uno" value="1:" />
+                            <p:inputText id="uno" value="#{pagoInternet.contadorUnDolar}">
+                                <p:ajax event="blur" listener="#{pagoInternet.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
 
 
-                <p:panelGrid columns="3" layout="grid"> 
-                    A quí todo lo que necesiten desarrollar
-                </p:panelGrid>
+                            <h:outputLabel for="uct" value="1:" />
+                            <p:inputText id="uct" value="#{pagoInternet.contadorDolarCentavos}">
+                                <p:ajax event="blur" listener="#{pagoInternet.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+
+                            <h:outputLabel for="cin" value="0.5:" />
+                            <p:inputText id="cin" value="#{pagoInternet.contadorCincuentaCentavos}">
+                                <p:ajax event="blur" listener="#{pagoInternet.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+
+                            <h:outputLabel for="vcin" value="0.25:" />
+                            <p:inputText id="vcin" value="#{pagoInternet.contadorVcincoCentavos}">
+                                <p:ajax event="blur" listener="#{pagoInternet.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+
+                            <h:outputLabel for="dct" value="0.10:" />
+                            <p:inputText id="dct" value="#{pagoInternet.contadorDiezCentavos}">
+                                <p:ajax event="blur" listener="#{pagoInternet.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+
+                            <h:outputLabel for="cct" value="0.05:" />
+                            <p:inputText id="cct" value="#{pagoInternet.contadorCincoCentavos}">
+                                <p:ajax event="blur" listener="#{pagoInternet.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+
+                            <h:outputLabel for="ucct" value="0.01:" />
+                            <p:inputText id="ucct" value="#{pagoInternet.contadorCentavo}">
+                                <p:ajax event="blur" listener="#{pagoInternet.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+
+                            <h:outputLabel for="vFinal" value="Valor Receptado:" />
+                            <p:inputText id="vFinal" value="#{pagoInternet.valorReceptado}"/>
+
+                            <h:outputLabel for="vuelto" value="Cambio:" />
+                            <p:inputText id="vuelto" value="#{pagoInternet.cambio}"/> 
+                        </h:panelGrid>
+                        <p:commandButton value="REGISTRAR PAGO" actionListener="#{pagoInternet.registrarPago()}" update="fs-mcaja"></p:commandButton>
+                    </p:fieldset> 
+
+                </h:panelGrid>
 
             </h:form>
         </ui:define>

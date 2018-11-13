@@ -14,97 +14,109 @@
         </ui:define>
 
         <ui:define name="body">
+            <p:growl id="msgs" showDetail="false" autoUpdate="true" />
             <h:form id="form">
-                <p:growl id="msgs" showDetail="true" />
+
+
 
                 <h:outputText value="Benvenido #{pagoMulta.nameUsuario} - #{pagoMulta.idUsuario}"/>
-
                 <p:panelGrid columns="1" layout="grid" class="ui-g-12" style="text-align: center; vertical-align: central;"> 
-                    <!--<p:graphicImage library="imagenes" name="multa.jpg" style="max-height: 70px;" />-->
                     <h:outputText value="Multa de Tránsito" />
                 </p:panelGrid>
 
-                <center style="padding: 10px;">
-                    <h:outputLabel for="it-placa" class="negrilla" value="PLACA: " />
-                     <p:inputText id="it-placa" placeholder="ABCD-1928" style="width: 150px;" value="#{pagoMulta.identificacionCliente}" ></p:inputText>
-                     <p:commandButton value="BUSCAR" id="cb-buscar" update="growl, :form:pg-cliente" actionListener="#{pagoMulta.buscarMulta()}" styleClass="ui-priority-primary" />
-                 </center>
-
-                
-
-                <p:panelGrid columns="1" class="ui-g-12" layout="grid"> 
-                    <p:fieldset legend="INFORMACIÓN" style="margin-bottom:20px;">
-                        <h:panelGrid id="pg-cliente" columns="4" class="ui-g-8" cellpadding="5">
-                            <h:outputLabel for="ot-nombresApellidos" value="Nombres y Apellidos: " class="negrilla" />
-                            <h:outputText id="ot-nombresApellidos" value="#{pagoMulta.cliente.cliNombre}"/>
-
-                            <h:outputLabel for="ot-cedula" value="Cédula: " class="negrilla" />
-                            <h:outputText id="ot-cedula" value="#{pagoMulta.cliente.cliIdentificacion}"/>
-
-                            <h:outputLabel for="ot-placaVehiculo" value="Placa Vehículo: " class="negrilla" />
-                            <h:outputText id="ot-placaVehiculo" value="#{pagoMulta.cliente.viPlaca.viPlaca}"/>
-
-                            <h:outputLabel for="ot-marca" value="Marca: " class="negrilla" />
-                            <h:outputText id="ot-marca" value="#{pagoMulta.cliente.viPlaca.viMarca}"/>
-
-                            <h:outputLabel for="ot-modelo" value="Modelo: " class="negrilla"/>
-                            <h:outputText id="ot-modelo" value="#{pagoMulta.cliente.viPlaca.viModelo}"/>
-
-                            <h:outputLabel for="ot-valorMulta" value="Valor Multa: " class="negrilla"/>
-                            <h:outputText id="ot-valorMulta" value="#{pagoMulta.pago.pagValor}"/>
+                <h:panelGrid columns="3" id="all-todo">
+                    <p:fieldset legend="Servicio Básico Agua / Luz" style="margin-bottom:20px " id="fs-cliente1">
+                        <h:panelGrid columns="3">
+                            <h:outputLabel for="it-placa" class="negrilla" value="PLACA: " />
+                            <p:inputText id="it-placa" placeholder="ABCD-1928" style="width: 150px;" value="#{pagoMulta.identificacionCliente}" ></p:inputText>
+                            <p:commandButton value="BUSCAR" id="cb-buscar" update=":form:pg-cliente" actionListener="#{pagoMulta.buscarMulta()}" styleClass="ui-priority-primary" />
                         </h:panelGrid>
                     </p:fieldset>
-                </p:panelGrid>
 
-                
-                    <center style="padding: 10px;">
-                    
-                        <h:outputLabel for="vFinal" value="Valor receptado:" />
-                    <p:inputText id="vFinal" disabled="true"/>
-                        <p:commandButton value="REGISTRAR PAGO"></p:commandButton>
-                     
-                 </center>
-                               
+                    <p:fieldset legend="INFORMACIÓN" style="margin-bottom:20px;">
+                        <h:panelGrid id="pg-cliente" columns="2" cellpadding="5">
+                            <h:outputLabel for="ot-nombresApellidos" value="Nombres y Apellidos: " styleClass="negrilla" />
+                            <p:inputText id="ot-nombresApellidos" readonly="true" value="#{pagoMulta.cliente.cliNombre}"/>
 
-                <p:panelGrid columns="1" class="ui-g-12" layout="grid"> 
-                    <p:commandButton value="AGREGAR DETALLE" styleClass="ui-priority-primary" process="@this" update=":form:msgs"
-                                     actionListener="#{pagoMulta.onAddNew()}" oncomplete="PF('cars1').addRow();"/>
-                    
-                    <p:dataTable id="cars1" widgetVar="cars1" var="monedita" value="#{pagoMulta.listaMoneda}" editable="true" style="margin-bottom:20px">
-                    <f:facet name="header">
-                        Caja de Moneda
-                    </f:facet>
+                            <h:outputLabel for="ot-cedula" value="Cédula: " class="negrilla" />
+                            <p:inputText id="ot-cedula" readonly="true" value="#{pagoMulta.cliente.cliIdentificacion}"/>
 
-                    <p:ajax event="rowEdit" listener="#{pagoMulta.onRowEdit}" update=":form:msgs" />
-                    <p:ajax event="rowEditCancel" listener="#{pagoMulta.onRowCancel}" update=":form:msgs" />
+                            <h:outputLabel for="ot-placaVehiculo" value="Placa Vehículo: " class="negrilla" />
+                            <p:inputText id="ot-placaVehiculo" readonly="true" value="#{pagoMulta.cliente.viPlaca.viPlaca}"/>
 
-                    
+                            <h:outputLabel for="ot-marca" value="Marca: " class="negrilla" />
+                            <p:inputText id="ot-marca" readonly="true" value="#{pagoMulta.cliente.viPlaca.viMarca}"/>
 
-                    <p:column headerText="Tipo">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{monedita.tmoTipo}" /></f:facet>
-                            <f:facet name="input"><p:inputText value="#{monedita.tmoValor}" style="width:100%" label="Year"/></f:facet>
-                        </p:cellEditor>
-                    </p:column>
+                            <h:outputLabel for="ot-modelo" value="Modelo: " class="negrilla"/>
+                            <p:inputText id="ot-modelo" readonly="true" value="#{pagoMulta.cliente.viPlaca.viModelo}"/>
 
-                    <p:column headerText="Valor">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{monedita.tmoTipo} - #{monedita.tmoTipo}" /></f:facet>
-                            <f:facet name="input">
-                                <h:selectOneMenu value="#{monedita.tmoId}" style="width:100%">
-                                    <f:selectItems value="#{tipomonedaController.items}" var="tipoMonedita" itemLabel="#{tipoMonedita.tmoTipo} - #{tipoMonedita.tmoValor}" itemValue="#{tipoMonedita.tmoId}" />
-                                </h:selectOneMenu>
-                            </f:facet>
-                        </p:cellEditor>
-                    </p:column>
+                            <h:outputLabel for="ot-valorMulta" value="Valor Multa: " class="negrilla"/>
+                            <p:inputText id="ot-valorMulta" readonly="true" value="#{pagoMulta.nuevoPago.pagValor}"/>
+                        </h:panelGrid>
+                    </p:fieldset>
 
-                    <p:column style="width:32px">
-                        <p:rowEditor />
-                    </p:column>
-                </p:dataTable>
-                </p:panelGrid>
-                
+                    <p:fieldset legend="Registro de Caja" style="margin-bottom:20px " id="fs-mcaja">
+                        <h:panelGrid columns="4" cellpadding="5">
+                            <h:outputLabel for="veinte" value="20:" />
+                            <p:inputText id="veinte" value="#{pagoMulta.contadorVeinteDolares}">
+                                <p:ajax event="blur" listener="#{pagoMulta.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
 
+                            <h:outputLabel for="diez" value="10:" />
+                            <p:inputText id="diez" value="#{pagoMulta.contadorDiezDolares}">
+                                <p:ajax event="blur" listener="#{pagoMulta.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+
+                            <h:outputLabel for="cinco" value="5:" />
+                            <p:inputText id="cinco" value="#{pagoMulta.contadorCincoDolares}">
+                                <p:ajax event="blur" listener="#{pagoMulta.actualizarEstado()}" update="vFinal vuelto" global="false"/>                            
+                            </p:inputText>
+
+                            <h:outputLabel for="uno" value="1:" />
+                            <p:inputText id="uno" value="#{pagoMulta.contadorUnDolar}">
+                                <p:ajax event="blur" listener="#{pagoMulta.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+
+
+                            <h:outputLabel for="uct" value="1:" />
+                            <p:inputText id="uct" value="#{pagoMulta.contadorDolarCentavos}">
+                                <p:ajax event="blur" listener="#{pagoMulta.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+
+                            <h:outputLabel for="cin" value="0.5:" />
+                            <p:inputText id="cin" value="#{pagoMulta.contadorCincuentaCentavos}">
+                                <p:ajax event="blur" listener="#{pagoMulta.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+
+                            <h:outputLabel for="vcin" value="0.25:" />
+                            <p:inputText id="vcin" value="#{pagoMulta.contadorVcincoCentavos}">
+                                <p:ajax event="blur" listener="#{pagoMulta.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+
+                            <h:outputLabel for="dct" value="0.10:" />
+                            <p:inputText id="dct" value="#{pagoMulta.contadorDiezCentavos}">
+                                <p:ajax event="blur" listener="#{pagoMulta.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+
+                            <h:outputLabel for="cct" value="0.05:" />
+                            <p:inputText id="cct" value="#{pagoMulta.contadorCincoCentavos}">
+                                <p:ajax event="blur" listener="#{pagoMulta.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+
+                            <h:outputLabel for="ucct" value="0.01:" />
+                            <p:inputText id="ucct" value="#{pagoMulta.contadorCentavo}">
+                                <p:ajax event="blur" listener="#{pagoMulta.actualizarEstado()}" update="vFinal vuelto" global="false"/>
+                            </p:inputText>
+
+                            <h:outputLabel for="vFinal" value="Valor Receptado:" />
+                            <p:inputText id="vFinal" value="#{pagoMulta.valorReceptado}"/>
+
+                            <h:outputLabel for="vuelto" value="Cambio:" />
+                            <p:inputText id="vuelto" value="#{pagoMulta.cambio}"/> 
+                        </h:panelGrid>
+                        <p:commandButton value="REGISTRAR PAGO" actionListener="#{pagoMulta.registrarPago()}" update="fs-mcaja"></p:commandButton>
+                    </p:fieldset>    
+                </h:panelGrid>
 
 
             </h:form>
