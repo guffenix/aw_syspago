@@ -48,5 +48,19 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
         }
     }
     
+    public Cliente obtenerClientePorIdentificacion(String _identificacion)
+    {
+        List<Cliente> listaC=getEntityManager().createNamedQuery("Cliente.findByCliIdentificacion").setParameter("cliIdentificacion", _identificacion).getResultList();
+        if (listaC!=null && !listaC.isEmpty())
+        {
+            return listaC.get(0);
+        }
+        else
+        {
+            return null;
+        }
+        
+    }
+    
     
 }
