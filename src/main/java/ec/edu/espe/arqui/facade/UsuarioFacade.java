@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ec.edu.espe.arqui.facade;
 
 import ec.edu.espe.arqui.entidades.Usuario;
@@ -29,4 +25,11 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         super(Usuario.class);
     }
     
+    public Usuario obtenerUsuarioLogin(String user, String clave) {
+        return (Usuario)getEntityManager().createQuery("Select u from Usuario u where u.usuUser  = ?1 AND u.usuClave =?2")
+                .setParameter(1, user)
+                .setParameter(2, clave)
+                .getSingleResult();
+    }
+
 }
