@@ -5,6 +5,7 @@
  */
 package ec.edu.espe.arqui.servicio;
 
+import ec.edu.espe.arqui.cls.PFijo;
 import ec.edu.espe.arqui.entidades.Cliente;
 import ec.edu.espe.arqui.entidades.Pago;
 import ec.edu.espe.arqui.facade.ClienteFacade;
@@ -12,11 +13,17 @@ import ec.edu.espe.arqui.facade.PagoFacade;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -39,6 +46,7 @@ public class PagoCredito {
     private Cliente clienteEncontrado;
 
     private Pago nuevoPago;
+    List<PFijo> listaCredito = new ArrayList();
 
     @EJB
     private ClienteFacade clienteFacade;
@@ -54,6 +62,15 @@ public class PagoCredito {
         
     }
 
+    public List<PFijo> getListaCredito() {
+        return listaCredito;
+    }
+
+    public void setListaCredito(List<PFijo> listaCredito) {
+        this.listaCredito = listaCredito;
+    }
+
+    
     public BigDecimal getValorReceptado() {
         return valorReceptado;
     }
@@ -191,6 +208,30 @@ public class PagoCredito {
 
     }
 
+    public List<PFijo> reporteTCredito(){
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("ec.edu.espe.arqui_aw_syspago_war_1.0PU");
+        EntityManager em1 = factory.createEntityManager();
+        try {
+            Query a = em1.createNativeQuery(
+                    "SELECT cl.cli_identificacion,cl.cli_tipo, cl.cli_nombre, cl.cli_direccion, pg.pag_valor, pg.pag_estado, pg.pag_fecha FROM cliente cl, pago pg, servicio sv WHERE cl.cli_identificacion=pg.cli_identificacion AND pg.ser_id=sv.ser_id AND sv.ser_id=22");
+            List<Object[]> listado = a.getResultList();
+            for (Object[] objects : listado) {
+                PFijo pfijo =new PFijo();
+                pfijo.setIdent((String)objects[0]);
+                pfijo.setTipo((String)objects[1]);
+                pfijo.setNombre((String)objects[2]);
+                pfijo.setDir((String)objects[3]);
+                pfijo.setPago((String)objects[4]);
+                pfijo.setEstado((String)objects[5]);
+                pfijo.setFecha((String)objects[6]);
+                listaCredito.add(pfijo);
+            }            
+            return listaCredito;
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        return null;
+    }
     private void mostrarMensaje(String _mensaje, boolean _esInformativo) {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(_esInformativo ? FacesMessage.SEVERITY_INFO : FacesMessage.SEVERITY_ERROR, _mensaje, null));

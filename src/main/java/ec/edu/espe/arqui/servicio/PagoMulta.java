@@ -1,5 +1,6 @@
 package ec.edu.espe.arqui.servicio;
 
+import ec.edu.espe.arqui.cls.PFijo;
 import ec.edu.espe.arqui.entidades.Cliente;
 import ec.edu.espe.arqui.entidades.Pago;
 import ec.edu.espe.arqui.entidades.Tipomoneda;
@@ -19,6 +20,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.primefaces.event.RowEditEvent;
@@ -46,7 +51,7 @@ public class PagoMulta implements Serializable {
     private String identificacionCliente;
     private String nameUsuario;
     private String idUsuario;
-
+    List<PFijo> listaMulta = new ArrayList();
     // caja
     private Pago nuevoPago;
     private BigDecimal contadorCentavo;
@@ -131,7 +136,31 @@ public class PagoMulta implements Serializable {
         }
 
     }
-
+    
+    public List<PFijo> reporteTMulta(){
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("ec.edu.espe.arqui_aw_syspago_war_1.0PU");
+        EntityManager em1 = factory.createEntityManager();
+        try {
+            Query a = em1.createNativeQuery(
+                    "SELECT cl.cli_identificacion,cl.cli_tipo, cl.cli_nombre, cl.cli_direccion, pg.pag_valor, pg.pag_estado, pg.pag_fecha FROM cliente cl, pago pg, servicio sv WHERE cl.cli_identificacion=pg.cli_identificacion AND pg.ser_id=sv.ser_id AND sv.ser_id=25");
+            List<Object[]> listado = a.getResultList();
+            for (Object[] objects : listado) {
+                PFijo pfijo =new PFijo();
+                pfijo.setIdent((String)objects[0]);
+                pfijo.setTipo((String)objects[1]);
+                pfijo.setNombre((String)objects[2]);
+                pfijo.setDir((String)objects[3]);
+                pfijo.setPago((String)objects[4]);
+                pfijo.setEstado((String)objects[5]);
+                pfijo.setFecha((String)objects[6]);
+                listaMulta.add(pfijo);
+            }            
+            return listaMulta;
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        return null;
+    }
     private void mostrarMensaje(String _mensaje, boolean _esInformativo) {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(_esInformativo ? FacesMessage.SEVERITY_INFO : FacesMessage.SEVERITY_ERROR, _mensaje, null));
@@ -349,5 +378,15 @@ public class PagoMulta implements Serializable {
     public void setNuevoPago(Pago nuevoPago) {
         this.nuevoPago = nuevoPago;
     }
+
+    public List<PFijo> getListaMulta() {
+        return listaMulta;
+    }
+
+    public void setListaMulta(List<PFijo> listaMulta) {
+        this.listaMulta = listaMulta;
+    }
+    
+    
 
 }
