@@ -73,4 +73,20 @@ public class PagoFacade extends AbstractFacade<Pago> {
             return null;
         }
     }
+
+    public Pago obtenerPagoByFijo(String identificacion) {
+        BigDecimal serId = BigDecimal.valueOf(30);
+        BigInteger pagEstado = BigInteger.valueOf(1);
+        em.getEntityManagerFactory().getCache().evictAll();
+        List<Pago> listaR = getEntityManager()
+                .createQuery("Select p from Pago p where p.serId.serId = ?1 AND p.cliIdentificacion.cliIdentificacion = ?2 AND p.pagEstado = ?3")
+                .setParameter(1, serId)
+                .setParameter(2, identificacion)
+                .setParameter(3, pagEstado).getResultList();
+        if (listaR != null && !listaR.isEmpty()) {
+            return listaR.get(0);
+        } else {
+            return null;
+        }
+    }
 }
